@@ -5,6 +5,7 @@ import 'Input.dart';
 import 'Result.dart';
 import 'Riwayat.dart';
 import 'DropdownKonversi.dart';
+import 'DropdownAtas.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,34 +19,57 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   double _inputUser = 0;
-  double _jam = 0;
-  double _menit = 0; 
-  double _detik = 0;//inisialisasi
+  // double _jam = 0;
+  // double _menit = 0;
+  // double _detik =0; //inisialisasi
   final inputController = TextEditingController(); // memanggil nilai variabel
-  String _newValue = "jam"; //inisialisasi
+  String _newValue = "Jam";
+  String _newValueAtas = "Jam"; //inisialisasi
   double _result = 0;
   List<String> listViewItem = List<String>();
-  void perhitunganSuhu() {
+  List<String> listAtas = ["Jam","Menit","Detik"];
+  List<String> listWaktu = List <String>();
+  void perhitunganWaktu() {
     setState(() {
       _inputUser = double.parse(inputController.text);
-      if (_newValue == "jam")
+      if (_newValueAtas == "Jam" && _newValue == "Jam")
         _result = _inputUser * 1;
-      else if (_newValue == "menit")
-        _result =  _inputUser * 60;
-        else 
-        _result = _inputUser *3600;
+      else if (_newValueAtas == "Jam" && _newValue == "Menit")
+         _result =  _inputUser * 60;
+      else if (_newValueAtas == "Jam" && _newValue == "Detik")
+      _result = _inputUser *3600;
+      else if (_newValueAtas == "Menit" && _newValue == "Jam")
+       _result = _inputUser / 60 ;
+       else if (_newValueAtas == "Menit" && _newValue == "Menit")
+       _result = _inputUser * 1 ;
+       else if (_newValueAtas == "Menit" && _newValue == "Detik")
+       _result = _inputUser * 60 ;
+       else if (_newValueAtas == "Detik" && _newValue == "Jam")
+       _result = _inputUser / 3600 ;
+       else if (_newValueAtas == "Detik" && _newValue == "Menit")
+       _result = _inputUser / 60 ;
+       else if (_newValueAtas == "Detik" && _newValue == "Detik")
+       _result = _inputUser * 1;
     });
     listViewItem.add("$_newValue : $_result"); //menampilkan hasil
   }
 
+void dropdownOnChangedAtas(String changeValue) {
+    setState(() {
+      _newValueAtas = changeValue;
+      perhitunganWaktu();
+    });
+  }
+  
   void dropdownOnChanged(String changeValue) {
     setState(() {
       _newValue = changeValue;
-      perhitunganSuhu();
+      perhitunganWaktu();
     });
   }
 
-  var listItem = ["Jam", "Menit","Detik"]; 
+
+  var listItem = ["Jam", "Menit","Detik"]; //data nilai
 
   @override
   Widget build(BuildContext context) {
@@ -57,18 +81,17 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Konverter Suhu"),
+          title: Text("Konverter Waktu"),
         ),
         body: Container(
           margin: EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              
-              dropdownKonversi(
-                  listItem: listItem,
-                  newValue: _newValue,
-                  dropdownOnChanged: dropdownOnChanged), 
+              dropdownAtas(
+                  listAtas: listAtas,
+                  newValueAtas: _newValueAtas,
+                  dropdownOnChangedAtas: dropdownOnChangedAtas),
               Input(inputUserController: inputController),
               dropdownKonversi(
                   listItem: listItem,
@@ -76,12 +99,12 @@ class _MyAppState extends State<MyApp> {
                   dropdownOnChanged: dropdownOnChanged),
               Result(result: _result),
               Convert(
-                konvertHandler: perhitunganSuhu,
+                konvertHandler: perhitunganWaktu,
               ),
               Container(
                 margin: EdgeInsets.only(top: 10, bottom: 10),
                 child: Text(
-                  "Riwayat Konversi",
+                  "Riwayat Konversi Waktu",
                   style: TextStyle(fontSize: 20),
                 ),
               ),
