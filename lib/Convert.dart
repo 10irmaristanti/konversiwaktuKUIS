@@ -6,10 +6,10 @@ class Convert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: double.infinity, //agar lebar button penuh kesamping
       height: 50,
-      child: RaisedButton(
-        onPressed: konvertHandler,
+      child: RaisedButton( //membuat button
+        onPressed: konvertHandler, //agar button bisa diklik
         color: Colors.blueAccent,
         textColor: Colors.white,
         child: Text("Konversi Suhu"),

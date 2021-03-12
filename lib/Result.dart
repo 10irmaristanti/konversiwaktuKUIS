@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Result extends StatelessWidget {
-  const Result({
+  const Result({ //konstruktor
     Key key,
-    @required this.result,
-  }) : super(key: key);
-  final double result;
-  @override
+    @required this.result, //isi parameter konstruktor
+  }) : super(key: key); //inisialisasi sebagai subclass main
+  final double result; //deklarasi variabel pada konstruktor
+  @override //fungsi yang nama dan parameternya sama
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 20, bottom: 20),
@@ -19,7 +19,7 @@ class Result extends StatelessWidget {
             style: TextStyle(fontSize: 20),
           ),
           Text(
-            result.toStringAsFixed(1),
+            result.toStringAsFixed(1), //menampilkan hasil agar nilai 0 dibelakang koma ada 1
             style: TextStyle(fontSize: 30),
           )
         ],
