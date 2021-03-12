@@ -1,3 +1,5 @@
+![plot](./hasil/hasil.jpg)
+
 # konversiwaktu
 
 A new Flutter project.
